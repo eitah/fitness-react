@@ -5,13 +5,22 @@ import React from 'react';
 import axios from 'axios';
 import base64 from 'base-64';
 import { browserHistory } from 'react-router';
+import UserDetails from './UserDetails';
 
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
-    this.state = { error: '' };
+    this.state = { userList: [] };
     this.error = '';
+  }
+
+  componentDidMount() {
+    console.log('in the did mount');
+    axios.get('http://localhost:9001/api/users')
+    .then((res) => {
+      this.setState({ userList: res.data });
+    });
   }
 
   create(e) {
@@ -40,9 +49,23 @@ export default class Admin extends React.Component {
   }
 
   render() {
+    let users = (<p> Please Wait... </p>);
+    if (this.state.userList) { users = (this.state.userList.map(u => <UserDetails key={u.id} user={u} />)); }
     return (
       <div>
         <h1>Admin</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>&nbsp;</th>
+              <th>Is Enabled</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users}
+          </tbody>
+        </table>
       </div>
     );
   }

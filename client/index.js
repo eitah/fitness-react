@@ -9,6 +9,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Profile from './components/Profile';
+import Exercises from './components/Exercises';
 import Admin from './components/Admin';
 
 import React from 'react';
@@ -25,6 +26,7 @@ render(
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
       <Route path="profile" component={Profile} />
+      <Route path="exercises" component={Exercises} />
       <Route path="admin" component={Admin} />
     </Route>
   </Router>

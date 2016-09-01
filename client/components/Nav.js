@@ -19,6 +19,7 @@ export default class Admin extends React.Component {
         <li><Link to="/login"><i className="fa fa-key fa-lock" /> Login</Link></li></ul>);
     } else {
       loggedIn = (<ul className="nav navbar-nav navbar-right"><li><Link to="/logout"><i className="fa fa-key fa-unlock" /> Logout</Link></li>
+        <li><Link to="/exercises"><i className="fa fa-key fa-heartbeat" />Exercises</Link></li>
         <li><Link to="/profile"><i className="fa fa-key fa-heartbeat" /> Profile</Link></li></ul>);
     }
     return (

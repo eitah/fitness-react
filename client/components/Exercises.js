@@ -11,6 +11,7 @@ export default class Exercises extends React.Component {
     this.state = { authorization, exercises: [], types: ['BIKE', 'SWIM', 'LIFT', 'RUN'] };
     this.refresh = this.refresh.bind(this);
     this.create = this.create.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,15 @@ export default class Exercises extends React.Component {
     const calories = this.refs.calories.value;
     const duration = this.refs.duration.value;
     axios.post('http://localhost:9001/api/users/exercises', { type, quantity, calories, duration }, { headers: { authorization: this.state.authorization } })
+    .then(() => {
+      this.refresh();
+    });
+  }
+
+  delete(e) {
+    // const id = e.currentTarget.getAttribute('data-id');
+    const id = e.target.attributes['data-id'].value;
+    axios.delete(`http://localhost:9001/api/users/exercises/${id}`, { headers: { authorization: this.state.authorization } })
     .then(() => {
       this.refresh();
     });
@@ -79,6 +89,7 @@ export default class Exercises extends React.Component {
                   <th>Quantity</th>
                   <th>Calories</th>
                   <th>Duration</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -89,6 +100,9 @@ export default class Exercises extends React.Component {
                       <td>{e.quantity}</td>
                       <td>{e.calories}</td>
                       <td>{e.duration}</td>
+                      <td>
+                        <button onClick={this.delete} type="submit" data-id={e.id} className="btn btn-default">Delete</button>
+                      </td>
                     </tr>)
                   )}
               </tbody>

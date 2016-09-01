@@ -21,7 +21,6 @@ export default class Exercises extends React.Component {
     axios.get('http://localhost:9001/api/users/exercises', { headers: { authorization: this.state.authorization } })
     .then(res => {
       this.setState({ exercises: res.data });
-      console.log('THIS.STATE', this.state);
     });
   }
 

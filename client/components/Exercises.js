@@ -8,7 +8,7 @@ export default class Exercises extends React.Component {
   constructor(props) {
     super(props);
     const authorization = localStorage.getItem('token');
-    this.state = { authorization, exercises: [] };
+    this.state = { authorization, exercises: [], types: ['BIKE', 'SWIM', 'LIFT', 'RUN'] };
     this.refresh = this.refresh.bind(this);
     this.create = this.create.bind(this);
   }
@@ -48,7 +48,9 @@ export default class Exercises extends React.Component {
             <form>
               <div className="form-group">
                 <label htmlFor="type">Type</label>
-                <input ref="type" type="text" className="form-control" id="type" />
+                <select className="form-control" ref="type">
+                    {this.state.types.map((t, i) => <option key={i}>{t}</option>)}
+                </select>
               </div>
 
               <div className="form-group">

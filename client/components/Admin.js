@@ -6,7 +6,7 @@ import axios from 'axios';
 import base64 from 'base-64';
 import { browserHistory } from 'react-router';
 
-export default class Login extends React.Component {
+export default class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
@@ -40,34 +40,9 @@ export default class Login extends React.Component {
   }
 
   render() {
-    let errorMessage = (<p />);
-    if (this.state.error) { errorMessage = (<p> {this.state.error}</p>); }
     return (
       <div>
-
-        <h1>Login</h1>
-
-        <div className="row">
-          <div className="col-xs-3">
-            <form>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input ref="username" type="text" className="form-control" id="username" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input ref="password" type="password" className="form-control" id="password" />
-              </div>
-
-              <button onClick={this.create} type="submit" className="btn btn-default">Create</button>
-            </form>
-          </div>
-          <div className="col-xs-9">
-          {errorMessage}
-          </div>
-        </div>
-
+        <h1>Admin</h1>
       </div>
     );
   }

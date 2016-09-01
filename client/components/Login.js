@@ -1,4 +1,4 @@
-/* eslint-disable max-len, arrow-body-style, no-underscore-dangle, react/no-string-refs, react/self-closing-comp */
+/* eslint-disable max-len, arrow-body-style, no-underscore-dangle, react/no-string-refs, react/self-closing-comp, eqeqeq */
 /* global localStorage */
 
 import React from 'react';
@@ -9,6 +9,8 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
+    this.state = { error: '' };
+    this.error = '';
   }
 
   create(e) {
@@ -21,12 +23,19 @@ export default class Login extends React.Component {
       localStorage.setItem('token', res.headers.authorization);
       browserHistory.push('/');
     })
-    .catch(() => {
+    .catch((err) => {
+      if (err.response.data.status == 401) {
+        localStorage.clear();
+        this.setState({ error: err.response.data.message });
+      }
       // notify user login failed
     });
   }
 
   render() {
+    console.log('here in the render:', this.state.error);
+    let errorMessage = (<p />);
+    if (this.state.error) { errorMessage = (<p> {this.state.error}</p>); }
     return (
       <div>
 
@@ -49,6 +58,7 @@ export default class Login extends React.Component {
             </form>
           </div>
           <div className="col-xs-9">
+          {errorMessage}
           </div>
         </div>
 
